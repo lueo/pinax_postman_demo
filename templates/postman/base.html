@@ -1,0 +1,27 @@
+{% extends "subnav_base.html" %}
+
+{% load url from future %}
+{% load i18n %}{% load postman_tags %}
+{% block head_title %}{% trans "Messaging" %}{% endblock %}
+{% block body_class %}messages{% endblock %}
+
+{% block subnav %}
+{% if user.is_authenticated %}
+{% block postman_menu %}
+<ul class="nav nav-list" id="postman_menu">
+  {% postman_unread as unread_count %}
+  <li class="nav-header">{% trans "Message" %}</li>
+  <li><a href="{% url 'postman_inbox' %} ">&raquo;&nbsp;{% trans "Inbox" %}{% if unread_count %} <strong>({{ unread_count }})</strong>{% endif %}</a></li>
+  <li><a href="{% url 'postman_sent' %} ">&raquo;&nbsp;{% trans "Sent Messages" %}</a></li>
+  <li><a href="{% url 'postman_write' %} ">&raquo;&nbsp;{% trans "Write" %}</a></li>
+  <li><a href="{% url 'postman_archives' %} ">&raquo;&nbsp;{% trans "Archives" %}</a></li>
+  <li><a href="{% url 'postman_trash' %} ">&raquo;&nbsp;{% trans "Trash" %}</a></li>
+</ul>
+{% endblock %}
+
+{% else %}
+&nbsp;
+{% endif %}
+{% endblock %}
+
+{%block body %}{% block content %}{% endblock %}{% endblock %}
